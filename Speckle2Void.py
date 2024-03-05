@@ -15,7 +15,7 @@ import argparse
 #import os
 import scipy.io as sio
 import tensorflow as tf
-from keras.engine.training_utils import iter_sequence_infinite
+# from keras.engine.training_utils import iter_sequence_infinite
 from DataGenerator import DataGenerator
 from DataWrapper import DataWrapper
 import keras.backend as K
@@ -34,7 +34,8 @@ from termcolor import cprint
 from tqdm import trange
 from tqdm import tqdm
 
-
+tf = tf.compat.v1
+tf.disable_eager_execution()
 class Speckle2V(object):
     """The Speckle2V class to train and test a blind-spot network with variable spot shape
         Parameters

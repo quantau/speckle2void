@@ -1,0 +1,4 @@
+__pycache__/
+*.zip
+test_examples/*.mat
+libraries-old/

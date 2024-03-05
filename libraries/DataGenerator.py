@@ -32,7 +32,7 @@ class DataGenerator():
 
         Returns
         -------
-        images : list(array(float))
+        images : list(tuple(str, array(float)))
                  A list of the read tif-files. The images have dimensionality 'SZYXC' or 'SYXC'
         """
         assert 'Y' in dims and 'X' in dims, "'dims' has to contain 'X' and 'Y'."
@@ -65,10 +65,9 @@ class DataGenerator():
         imgs = []
         
         
-        
-        
         for f in files[0:max_files]:
             print('Reading {0}...'.format(f))
+            filename = str(f)
             
             if f.endswith('.h5') or f.endswith('.hdf5'):
                 f = h5py.File(f, 'r')
@@ -94,6 +93,7 @@ class DataGenerator():
     
                 img = imread(f).astype(np.uint16)
             
+            print(len(img.shape), img.shape, dims)
             assert len(img.shape) == len(dims), "Number of image dimensions doesn't match 'dims'."
 
             img = np.moveaxis(img, move_axis_from, move_axis_to)
@@ -104,7 +104,7 @@ class DataGenerator():
             if not ('C' in dims):
                 img = img[..., np.newaxis]
 
-            imgs.append(img)
+            imgs.append((filename, img))
 
         return imgs
 
